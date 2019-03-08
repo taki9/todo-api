@@ -1,28 +1,29 @@
 const fs = require('fs-extra');
 const { getTodos } = require('./todos/container');
 
-const file = 'todos.json';
+const FILE_NAME = 'todos.json';
 
 const updateTodoFile = async () => {
   try {
-    await fs.ensureFile(file);
+    await fs.ensureFile(FILE_NAME);
 
     const todos = getTodos();
 
-    fs.writeJSON(file, todos);
+    fs.writeJSON(FILE_NAME, todos);
   } catch (err) {
     console.error(err);
   }
 }
 
 const readTodoFile = () => {
-  const exists = fs.existsSync(file);
+  // Sync-es függvényeket nem kéne használni
+  const exists = fs.existsSync(FILE_NAME);
 
   if (!exists) {
     return [];
   }
 
-  const todos = fs.readJsonSync(file);
+  const todos = fs.readJsonSync(FILE_NAME);
 
   return todos;
 }
