@@ -7,11 +7,10 @@ const todoController = require('./todos');
 
 // context
 const fileStorage = require('./fileStorage');
-const todoContainer = require('./container');
+const todoStorage = require('./inmemoryStorage');
 
 const initContext = () => {
-  // TODO: container helyett inmemoryStorage
-  const todoContainer = todoContainer();
+  const todoContainer = todoStorage();
   return { fileStorage, todoContainer };
 };
 
@@ -33,14 +32,11 @@ const initApp = context => {
   todos.get('/', todoController.list);
   todos.get('/completed', todoController.completed);
   todos.get('/:id', todoController.show);
-  // TODO: hozzáadás az mindig POST
-  todos.put('/', todoController.add);
-  // TODO: delete('/completed') még jó lenne
+  todos.post('/', todoController.add);
+  todos.delete('/completed', todoController.deleteCompleted)
   todos.delete('/all', todoController.deleteAll);
   todos.delete('/:id', todoController.delete);
-  // TODO: legyen egy PUT
-  todos.post('/:id', todoController.patch);
-  todos.patch('/:id', todoController.toggle);
+  todos.put('/:id', todoController.patch);
 
   app.use('/todo', todos);
 

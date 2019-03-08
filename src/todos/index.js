@@ -6,6 +6,6 @@ module.exports = {
   add: require('./add'),
   delete: require('./delete'),
   patch: require('./patch'),
-  toggle: require('./toggle'),
-  deleteAll: require('./deleteAll')
+  deleteAll: require('./deleteAll'),
+  deleteCompleted: require('./deleteCompleted')
 };

@@ -1,13 +1,11 @@
 const fs = require('fs-extra');
-const { getTodos } = require('./todos/container');
+const inmemoryStorage = require('./inmemoryStorage');
 
 const FILE_NAME = 'todos.json';
 
-const updateTodoFile = async () => {
+const updateTodoFile = async todos => {
   try {
     await fs.ensureFile(FILE_NAME);
-
-    const todos = getTodos();
 
     fs.writeJSON(FILE_NAME, todos);
   } catch (err) {
@@ -15,15 +13,14 @@ const updateTodoFile = async () => {
   }
 }
 
-const readTodoFile = () => {
-  // Sync-es függvényeket nem kéne használni
-  const exists = fs.existsSync(FILE_NAME);
+const readTodoFile = async () => {
+  const exists = await fs.pathExists(FILE_NAME);
 
   if (!exists) {
     return [];
   }
 
-  const todos = fs.readJsonSync(FILE_NAME);
+  const todos = await fs.readJsonSync(FILE_NAME);
 
   return todos;
 }

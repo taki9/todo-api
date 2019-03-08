@@ -1,13 +1,7 @@
-const todoContainer =  require('./container');
-const fileStorage = require('../fileStorage');
-
 module.exports = (req, res) => {
-  const index = parseInt(req.params.id);
-  const title = req.body.title;
+  const todos = req.context.todoContainer.patchTodo(req.params.id, req.body);
 
-  const todos = todoContainer.patchTodo(index, title);
-
-  fileStorage.updateTodoFile(todos);
+  req.context.fileStorage.updateTodoFile(todos);
 
   return res.send(todos);
 }
