@@ -9,7 +9,7 @@ const updateTodoFile = async () => {
 
     const todos = getTodos();
 
-    await fs.writeJSON(file, todos);
+    fs.writeJSON(file, todos);
   } catch (err) {
     console.error(err);
   }
