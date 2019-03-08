@@ -9,7 +9,7 @@ const port = 8000;
 
 app.use(bodyParser.json());
 
-const todos = express.Router('/todos');
+const todos = express.Router();
 
 todos.get('/', todoController.list);
 todos.get('/completed', todoController.completed);
@@ -31,4 +31,3 @@ app.listen(port, err => {
   setTodos(fileStorage.readTodoFile());
   console.log(`Fut a szerver a ${port} porton.`);
 })
-
