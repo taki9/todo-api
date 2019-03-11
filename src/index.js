@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 // middlewares and controllers
 const contextMiddleware = require('./context');
-const todoController = require('./todos');
+const routes = require('./routes');
 
 // context
 const fileStorage = require('./fileStorage');
@@ -28,15 +28,10 @@ const initApp = context => {
 
   todos.use(contextMiddleware(context));
 
-  // TODO: biztosítani, hogy adott végpont bármilyen method-dal ugyanazzal térjen vissza (rest standard)
-  todos.get('/', todoController.list);
-  todos.get('/completed', todoController.completed);
-  todos.get('/:id', todoController.show);
-  todos.post('/', todoController.add);
-  todos.delete('/completed', todoController.deleteCompleted)
-  todos.delete('/all', todoController.deleteAll);
-  todos.delete('/:id', todoController.delete);
-  todos.put('/:id', todoController.patch);
+  routes.forEach(route => {
+    const method = route.method ? route.method.toLowerCase() : 'get';
+    return todos[method](route.path, route.handler)
+  });
 
   app.use('/todo', todos);
 

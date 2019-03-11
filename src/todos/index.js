@@ -1,5 +1,4 @@
 module.exports = {
-  // method, path
   list: require('./getAll'),
   show: require('./getOne'),
   completed: require('./getCompleted'),
