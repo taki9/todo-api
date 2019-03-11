@@ -1,5 +1,5 @@
 module.exports = (req, res) => {
-  const todos = req.context.todoContainer.deleteTodo(req.params.id);
+  const todos = req.context.todoStorage.deleteTodo(req.params.id);
 
   req.context.fileStorage.updateTodoFile(todos);
 

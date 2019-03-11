@@ -1,5 +1,5 @@
 module.exports = (req, res) => {
-  const completed = req.context.todoContainer.getTodos(
+  const completed = req.context.todoStorage.getTodos(
     todos => todos.filter(todo => todo.completed)
   );
 

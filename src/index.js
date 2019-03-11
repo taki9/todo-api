@@ -1,22 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-// middlewares and controllers
+// middlewares and routing
 const contextMiddleware = require('./context');
 const routes = require('./routes');
 
 // context
 const fileStorage = require('./fileStorage');
-const todoStorage = require('./inmemoryStorage');
+const inmemoryStorage = require('./inmemoryStorage');
 
 const initContext = () => {
-  const todoContainer = todoStorage();
-  return { fileStorage, todoContainer };
+  const todoStorage = inmemoryStorage();
+  return { fileStorage, todoStorage };
 };
 
 const initContainer = async context => {
   const fileContent = await context.fileStorage.readTodoFile();
-  context.todoContainer.setTodos(fileContent);
+  context.todoStorage.setTodos(fileContent);
 };
 
 const initApp = context => {
