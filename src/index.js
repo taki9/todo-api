@@ -33,7 +33,7 @@ const initApp = context => {
     return todos[method](route.path, route.handler)
   });
 
-  app.use('/todo', todos);
+  app.use('/todos', todos);
 
   return app;
 };
