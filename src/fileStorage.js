@@ -11,7 +11,7 @@ const updateTodoFile = async todos => {
   } catch (err) {
     console.error(err);
   }
-}
+};
 
 const readTodoFile = async () => {
   const exists = await fs.pathExists(FILE_NAME);
@@ -23,9 +23,9 @@ const readTodoFile = async () => {
   const todos = await fs.readJsonSync(FILE_NAME);
 
   return todos;
-}
+};
 
 module.exports = {
   updateTodoFile,
   readTodoFile
-}
+};

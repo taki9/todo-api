@@ -3,7 +3,7 @@ const shortid = require('shortid');
 module.exports = () => {
   let todos = [];
 
-  const getTodos = filterFn => filterFn ? filterFn(todos) : todos
+  const getTodos = filterFn => (filterFn ? filterFn(todos) : todos);
 
   const setTodos = initial => (todos = initial);
 
@@ -20,13 +20,14 @@ module.exports = () => {
   };
 
   const patchTodo = (patchId, newProps) =>
-    todos.map(todo => todo.id === patchId ? Object.assign(todo, newProps) : todo);
+    todos.map(todo =>
+      todo.id === patchId ? Object.assign(todo, newProps) : todo
+    );
 
   const deleteTodo = deleteId =>
-    todos = todos.filter((todo) => todo.id !== deleteId);
+    (todos = todos.filter(todo => todo.id !== deleteId));
 
-  const clearTodos = filterFn =>
-    filterFn ? filterFn(todos) :[];
+  const clearTodos = filterFn => (filterFn ? filterFn(todos) : []);
 
   return {
     getTodos,

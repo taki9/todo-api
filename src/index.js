@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // middlewares and routing
-const contextMiddleware = require('./context');
+const contextMiddleware = require('./middlewares/context');
+const errorMiddleware = require('./middlewares/error');
 const routes = require('./routes');
 
 // context
@@ -30,10 +31,11 @@ const initApp = context => {
 
   routes.forEach(route => {
     const method = route.method ? route.method.toLowerCase() : 'get';
-    return todos[method](route.path, route.handler)
+    return todos[method](route.path, route.handler);
   });
 
   app.use('/todo', todos);
+  app.use(errorMiddleware);
 
   return app;
 };
