@@ -10,13 +10,14 @@ module.exports = () => {
   const getTodoById = id => todos.find(todo => todo.id === id);
 
   const addTodo = title => {
-    todos.push({
+    const todo = {
       id: shortid.generate(),
       title,
       completed: false
-    });
+    };
 
-    return todos;
+    todos.push(todo);
+    return todo;
   };
 
   const patchTodo = (patchId, newProps) =>

@@ -1,7 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 // middlewares and routing
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const contextMiddleware = require('./middlewares/context');
 const errorMiddleware = require('./middlewares/error');
 const routes = require('./routes');
@@ -23,6 +25,7 @@ const initContainer = async context => {
 const initApp = context => {
   const app = express();
 
+  app.use(cors());
   app.use(bodyParser.json());
 
   const todos = express.Router();

@@ -9,5 +9,5 @@ module.exports = (req, res) => {
 
   req.context.fileStorage.updateTodoFile(todos);
 
-  return res.send(todo);
+  return res.send(todos);
 };
