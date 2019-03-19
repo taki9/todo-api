@@ -17,7 +17,7 @@ const initContext = () => {
   return { fileStorage, todoStorage };
 };
 
-const initContainer = async context => {
+const initInMemoryStorage = async context => {
   const fileContent = await context.fileStorage.readTodoFile();
   context.todoStorage.setTodos(fileContent);
 };
@@ -45,7 +45,7 @@ const initApp = context => {
 
 const start = async port => {
   const context = initContext();
-  await initContainer(context);
+  await initInMemoryStorage(context);
   const app = initApp(context);
 
   app.listen(port, err => {
