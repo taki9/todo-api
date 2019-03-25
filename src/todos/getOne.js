@@ -1,6 +1,5 @@
 module.exports = (req, res) => {
-  const index = req.params.id;
-  const todo = req.context.todoStorage.getTodoById(index);
+  const todo = req.context.memoryStorage.getTodoById(req.params.id, req.user.id);
 
   if (!todo) {
     throw new Error('The resource could not be found.|404|NOT_FOUND');

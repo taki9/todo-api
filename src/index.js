@@ -13,13 +13,15 @@ const fileStorage = require('./fileStorage');
 const inmemoryStorage = require('./inmemoryStorage');
 
 const initContext = () => {
-  const todoStorage = inmemoryStorage();
-  return { fileStorage, todoStorage };
+  const memoryStorage = inmemoryStorage();
+  return { fileStorage, memoryStorage: memoryStorage };
 };
 
 const initInMemoryStorage = async context => {
-  const fileContent = await context.fileStorage.readTodoFile();
-  context.todoStorage.setTodos(fileContent);
+  const todos = await context.fileStorage.readTodoFile();
+  const users = await context.fileStorage.readUserFile();
+  context.memoryStorage.setTodos(todos);
+  context.memoryStorage.setUsers(users);
 };
 
 const initApp = context => {
@@ -28,16 +30,18 @@ const initApp = context => {
   app.use(cors());
   app.use(bodyParser.json());
 
-  const todos = express.Router();
+  // const todos = express.Router();
 
-  todos.use(contextMiddleware(context));
+  // todos.use(contextMiddleware(context));
+  app.use(contextMiddleware(context));
 
   routes.forEach(route => {
     const method = route.method ? route.method.toLowerCase() : 'get';
-    return todos[method](route.path, route.handler);
+    const handlers = route.preHandlers ? route.preHandlers.concat(route.handler) : route.handler
+    return app[method](route.path, handlers);
   });
 
-  app.use('/todos', todos);
+  // app.use('/todos', todos);
   app.use(errorMiddleware);
 
   return app;

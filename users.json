@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "username": "bagye",
+    "password": "123",
+    "firstName": "Eszter",
+    "lastName": "Bagy",
+    "address": "9165 Cakóháza, Bécsi utca 93."
+  },
+  {
+    "id": 2,
+    "username": "deakj",
+    "password": "123",
+    "firstName": "József",
+    "lastName": "Deák",
+    "address": "4163 Szerep, Tompa u. 34."
+  }
+]

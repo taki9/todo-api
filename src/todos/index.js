@@ -1,10 +1,8 @@
 module.exports = {
-  list: require('./getAll'),
+  list: require('./getMany'),
   show: require('./getOne'),
-  completed: require('./getCompleted'),
   add: require('./add'),
   delete: require('./delete'),
   patch: require('./patch'),
-  deleteAll: require('./deleteAll'),
-  deleteCompleted: require('./deleteCompleted')
+  deleteMany: require('./deleteMany')
 };

@@ -1,41 +1,51 @@
-const todoContoller = require('../todos/index');
+const auth = require('../middlewares/auth').auth;
+
+const todoContoller = require('../todos');
+const loginController = require('../login');
 
 module.exports = [
   {
-    path: '/',
+    path: '/todos',
+    preHandlers: [auth],
     handler: todoContoller.list
   },
   {
-    path: '/:id',
+    path: '/todos/:id',
+    preHandlers: [auth],
     handler: todoContoller.show
   },
   {
-    path: '/completed',
-    handler: todoContoller.completed
-  },
-  {
     method: 'post',
-    path: '/',
+    path: '/todos/',
+    preHandlers: [auth],
     handler: todoContoller.add
   },
   {
     method: 'delete',
-    path: '/:id',
+    path: '/todos/:id',
+    preHandlers: [auth],
     handler: todoContoller.delete
   },
   {
     method: 'put',
-    path: '/:id',
+    path: '/todos/:id',
+    preHandlers: [auth],
     handler: todoContoller.patch
   },
   {
     method: 'delete',
-    path: '/',
-    handler: todoContoller.deleteAll
+    path: '/todos/',
+    preHandlers: [auth],
+    handler: todoContoller.deleteMany
   },
   {
-    method: 'delete',
-    path: '/completed',
-    handler: todoContoller.deleteCompleted
+    method: 'post',
+    path: '/login',
+    handler: loginController.login
+  },
+  {
+    method: 'put',
+    path: '/login',
+    handler: loginController.renew
   }
 ];

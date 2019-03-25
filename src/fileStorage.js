@@ -1,31 +1,32 @@
 const fs = require('fs-extra');
-const inmemoryStorage = require('./inmemoryStorage');
 
-const FILE_NAME = 'todos.json';
+const TODO_FILE_NAME = 'todos.json';
+const USER_FILE_NAME = 'users.json';
 
 const updateTodoFile = async todos => {
   try {
-    await fs.ensureFile(FILE_NAME);
+    await fs.ensureFile(TODO_FILE_NAME);
 
-    fs.writeJSON(FILE_NAME, todos);
+    fs.writeJSON(TODO_FILE_NAME, todos);
   } catch (err) {
     console.error(err);
   }
 };
 
-const readTodoFile = async () => {
-  const exists = await fs.pathExists(FILE_NAME);
+const readFile = async (fileName) => {
+  const exists = await fs.pathExists(fileName);
 
   if (!exists) {
     return [];
   }
 
-  const todos = await fs.readJsonSync(FILE_NAME);
+  const todos = await fs.readJsonSync(fileName);
 
   return todos;
 };
 
 module.exports = {
   updateTodoFile,
-  readTodoFile
+  readTodoFile: readFile.bind(null, TODO_FILE_NAME),
+  readUserFile: readFile.bind(null, USER_FILE_NAME)
 };
