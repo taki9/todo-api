@@ -24,7 +24,7 @@ const auth = (req, res, next) => {
 
 const checkPermission = permission => (req, res, next) => {
   if (!req.user.permissions.includes(permission)) {
-    throw new Error('You have no permission for that!|403|FORBIDDEN');
+    throw new Error('Permission denied|403|FORBIDDEN');
   }
 
   next();

@@ -6,7 +6,7 @@ module.exports = (req, res) => {
   let userId = null;
 
   try {
-    userId = jwt.verify(token, 'almafa').userId;
+    userId = jwt.verify(prevJwt, 'almafa').userId;
   } catch {
     throw new Error('Unauthorized|401|UNAUTHORIZED');
   }
@@ -17,7 +17,9 @@ module.exports = (req, res) => {
     throw new Error('The resource could not be found.|404|NOT_FOUND');
   }
 
-  const token = jwt.sign({ userId: me.id }, 'almafa');
+  const token = jwt.sign({ userId: me.id }, 'almafa', {
+    expiresIn: '30 days'
+  });
 
   return res.send({ token, me });
 };
