@@ -3,7 +3,13 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res) => {
   const { prevJwt } = req.body;
 
-  const { userId } = jwt.verify(prevJwt, 'almafa');
+  let userId = null;
+
+  try {
+    userId = jwt.verify(token, 'almafa').userId;
+  } catch {
+    throw new Error('Unauthorized|401|UNAUTHORIZED');
+  }
 
   const me = req.context.memoryStorage.getUserById(userId);
 

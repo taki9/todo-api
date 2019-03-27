@@ -7,9 +7,11 @@ const auth = (req, res, next) => {
     throw new Error('Unauthorized|401|UNAUTHORIZED');
   }
 
-  const { userId } = jwt.verify(token, 'almafa');
+  let userId = null;
 
-  if (!userId) {
+  try {
+    userId = jwt.verify(token, 'almafa').userId;
+  } catch {
     throw new Error('Unauthorized|401|UNAUTHORIZED');
   }
 
